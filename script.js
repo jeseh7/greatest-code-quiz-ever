@@ -80,7 +80,6 @@ function timerFunc(){
                 timerEl.textContent = "Time Left: " + secondsLeft;
             }
         }, 1000);
-        
     };
 }
 
