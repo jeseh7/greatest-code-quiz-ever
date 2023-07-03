@@ -4,15 +4,18 @@ var titleEl = document.querySelector(".titleClass");
 var subtitleEl = document.querySelector(".subtitleClass");
 var startButtonEl = document.querySelector(".startClass");
 var choiceEl = document.querySelector(".choiceClass");
-
 var screenEl = document.querySelector(".screenClass");
+
+var timerEl = document.querySelector(".countdown");
 
 //Display quiz title screen
 titleEl.textContent = "This is the quiz title";
 subtitleEl.textContent = "This is the quiz subtitle";
 //Clicking "Start Quiz" button begins 
-startButtonEl.addEventListener("click", mainFunc);
-
+startButtonEl.addEventListener("click", () => {
+    mainFunc();
+    timerFunc();
+});
 
 //Save all questions and answers to an array of objects
 var allQuestions = [
@@ -30,53 +33,88 @@ var allQuestions = [
         A2: "BB",
         A3: "CC",
         A4: "DD",
-        CA: "DD",
+        CA: "BB",
     },
     { 
         Q: "What is the answer to question 3?",
-        A1: "A",
-        A2: "B",
-        A3: "C",
-        A4: "D",
-        CA: "B",
+        A1: "AAA",
+        A2: "BBB",
+        A3: "CCC",
+        A4: "DDD",
+        CA: "CCC",
     },
     { 
         Q: "What is the answer to question 4?",
-        A1: "A",
-        A2: "B",
-        A3: "C",
-        A4: "D",
-        CA: "D",
+        A1: "AAAA",
+        A2: "BBBB",
+        A3: "CCCC",
+        A4: "DDDD",
+        CA: "DDDD",
     },
     { 
         Q: "What is the answer to question 5?",
-        A1: "A",
-        A2: "B",
-        A3: "C",
-        A4: "D",
-        CA: "D",
+        A1: "AAAAA",
+        A2: "BBBBB",
+        A3: "CCCCC",
+        A4: "DDDDD",
+        CA: "AAAA",
     },
     { 
         Q: "What is the answer to question 6?",
-        A1: "A",
-        A2: "B",
-        A3: "C",
-        A4: "D",
-        CA: "A",
+        A1: "AAAAAA",
+        A2: "BBBBBB",
+        A3: "CCCCCC",
+        A4: "DDDDDD",
+        CA: "AAAAAA",
     }
 ];
 
 let i=-1;
+secondsLeft = 75;
+
+function timerFunc(){
+    if (i > -1){
+        var timeInterval = setInterval(function () {
+            if (secondsLeft > 1){
+                secondsLeft--;
+                timerEl.textContent = "Time Left: " + secondsLeft;
+            }
+        }, 1000);
+        
+    };
+}
+
+function wrongAnswer(event){
+    if (i >= 6){
+        return;
+    }
+    console.log(i);
+    var choice = event.target.innerHTML;
+    if (choice !== allQuestions[i].CA){
+        secondsLeft = secondsLeft - 10;
+    }
+    console.log(event.target.innerHTML);
+    console.log(allQuestions[i].CA);
+}
+
 function mainFunc(){  
     i++;
+    if (i >= 6){
+        window.open("./highscores.html", "_self");
+        return;
+    };
     screenFunc();
 }
 
 
-choiceEl.addEventListener("click", mainFunc);
+
+choiceEl.addEventListener("click", () => {
+    wrongAnswer(event);
+    mainFunc();
+});
 
 function screenFunc(){
-    //Display screen 1
+    //Display screens
     introScreenEl.textContent = "";
     screenEl.textContent = allQuestions[i].Q;
     choiceEl.children[0].textContent = allQuestions[i].A1;
