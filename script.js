@@ -5,10 +5,14 @@ var subtitleEl = document.querySelector(".subtitleClass");
 var startButtonEl = document.querySelector(".startClass");
 var choiceEl = document.querySelector(".choiceClass");
 
+var screenEl = document.querySelector(".screenClass");
 
-var screen1El = document.querySelector(".screen1Class");
+//Display quiz title screen
+titleEl.textContent = "This is the quiz title";
+subtitleEl.textContent = "This is the quiz subtitle";
+//Clicking "Start Quiz" button begins 
+startButtonEl.addEventListener("click", mainFunc);
 
-var screen2El = document.querySelector(".screen2Class");
 
 //Save all questions and answers to an array of objects
 var allQuestions = [
@@ -22,11 +26,11 @@ var allQuestions = [
     },
     { 
         Q: "What is the answer to question 2?",
-        A1: "A",
-        A2: "B",
-        A3: "C",
-        A4: "D",
-        CA: "D",
+        A1: "AA",
+        A2: "BB",
+        A3: "CC",
+        A4: "DD",
+        CA: "DD",
     },
     { 
         Q: "What is the answer to question 3?",
@@ -62,125 +66,24 @@ var allQuestions = [
     }
 ];
 
-
-
-/*
-function screen1Func(){
-    display screen 1
-}
-function screen2Func(){
-    display screen 2
-}
-
-function screen3Func(){
-    display screen 3
-}
-
-function screen4Func(){
-    display screen 4
-}
-
-function screen5Func(){
-    display screen 5
-}
-
-function screen6Func(){
-    display screen 6
-}
-
-//var funcArray = [screen1Func(), screen2Func(), screen3Func(), screen4Func()
-                    screen5Func(), screen6Func()];
-
-function nextPage(){
-    for (var i=0; i<allQuestions.length; i++){
-        funcArray[i];
-    }
-}
-
-//Create function for going through each quiz question. You're going to want
-//to make an array of functions, each display screen being a function.
-
-*/
-
-function nextPage(){
-    for (var i=0; i<allQuestions.length; i++){
-        choiceEl.addEventListener("click", arrayOfFuncs[i]); //I need to click on an answer and it will take me to the next page. I need to give all answers a class that will let me click and move to the next function in the array
-        
-    }
+let i=-1;
+function mainFunc(){  
+    i++;
+    screenFunc();
 }
 
 
-//Print quiz intro screen
-titleEl.textContent = "This is the quiz title";
-subtitleEl.textContent = "This is the quiz subtitle";
+choiceEl.addEventListener("click", mainFunc);
 
-//When start button is clicked, 1st question is displayed and timer starts
-startButtonEl.addEventListener("click", masterFunc);
-    
-//////////////////////////////////////////////////////////////////////////
-///////////////////////////////Screen 1//////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-function screen1Func(){
-    //Create ordered list element
-    var screen1Li = document.createElement("ol");
-    //Give the ol the ability to be clicked and move on to next screen
-    screen1Li.classList.add("choiceClass");
-
-    // Create ordered list items
-    var screen1LiA = document.createElement("li");
-    var screen1LiB = document.createElement("li");
-    var screen1LiC = document.createElement("li");
-    var screen1LiD = document.createElement("li");
-
-    // Add text for answer choices
-    screen1El.appendChild(screen1Li);
-    screen1LiA.textContent = allQuestions[0].A1;
-    screen1LiB.textContent = allQuestions[0].A2;
-    screen1LiC.textContent = allQuestions[0].A3;
-    screen1LiD.textContent = allQuestions[0].A4;
-
+function screenFunc(){
     //Display screen 1
     introScreenEl.textContent = "";
-    screen1Li.textContent = allQuestions[0].Q;
-    // Append answer choices to ordered list element to make them appear
-    screen1Li.appendChild(screen1LiA);
-    screen1Li.appendChild(screen1LiB);
-    screen1Li.appendChild(screen1LiC);
-    screen1Li.appendChild(screen1LiD);
-}
-
-//When an answer is clicker, move on to next screen
-//startButtonEl.addEventListener("click", screen2Func);
-//////////////////////////////////////////////////////////////////////////
-///////////////////////////////Screen 2//////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-function screen2Func(){
-    //Create ordered list element
-    var screen2Li = document.createElement("ol");
-
-    // Create ordered list items
-    var screen2LiA = document.createElement("li");
-    var screen2LiB = document.createElement("li");
-    var screen2LiC = document.createElement("li");
-    var screen2LiD = document.createElement("li");
-
-    // Add text for answer choices
-    screen2El.appendChild(screen2Li);
-    screen2LiA.textContent = allQuestions[1].A1;
-    screen2LiB.textContent = allQuestions[1].A2;
-    screen2LiC.textContent = allQuestions[1].A3;
-    screen2LiD.textContent = allQuestions[1].A4;
-
-    //Display screen 1
-    screen1El.textContent = "";
-    screen2Li.textContent = allQuestions[1].Q;
-    // Append answer choices to ordered list element to make them appear
-    screen2Li.appendChild(screen2LiA);
-    screen2Li.appendChild(screen2LiB);
-    screen2Li.appendChild(screen2LiC);
-    screen2Li.appendChild(screen2LiD);
-}
-
+    screenEl.textContent = allQuestions[i].Q;
+    choiceEl.children[0].textContent = allQuestions[i].A1;
+    choiceEl.children[1].textContent = allQuestions[i].A2;
+    choiceEl.children[2].textContent = allQuestions[i].A3;
+    choiceEl.children[3].textContent = allQuestions[i].A4;
+};
 
 //When question is wrong, deduct 15 seconds
 
@@ -189,8 +92,3 @@ function screen2Func(){
 //When initials submitted, switch to highscore page
 
 //Save highscore to local storage
-
-function masterFunc(){  
-    var arrayOfFuncs = [screen1Func, screen2Func];
-    arrayOfFuncs[0]();
-}
