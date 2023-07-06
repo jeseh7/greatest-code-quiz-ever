@@ -1,5 +1,5 @@
 //Initialize all variables
-var introScreenEl = document.querySelector(".introScreenClass")
+var introScreenEl = document.querySelector(".wrap")
 var titleEl = document.querySelector(".titleClass");
 var subtitleEl = document.querySelector(".subtitleClass");
 var startButtonEl = document.querySelector(".startClass");
@@ -9,8 +9,8 @@ var screenEl = document.querySelector(".screenClass");
 var timerEl = document.querySelector(".countdown");
 
 //Display quiz title screen
-titleEl.textContent = "This is the quiz title";
-subtitleEl.textContent = "This is the quiz subtitle";
+titleEl.textContent = "The Greatest Coding Quiz Ever!!!";
+subtitleEl.textContent = "Try and get as many questions right as you can! Every time you get a question wrong, you lose 15 seconds. If the timer runs out before you finish the code, you lose! Take the quiz as many times as you'd like to beat your score!";
 //Clicking "Start Quiz" button begins 
 startButtonEl.addEventListener("click", () => {
     mainFunc();
@@ -70,7 +70,7 @@ var allQuestions = [
 ];
 
 let i=-1;
-secondsLeft = 75;
+var secondsLeft = 75;
 
 function timerFunc(){
     if (i > -1){
@@ -105,8 +105,6 @@ function mainFunc(){
     screenFunc();
 }
 
-
-
 choiceEl.addEventListener("click", () => {
     wrongAnswer(event);
     mainFunc();
@@ -115,12 +113,16 @@ choiceEl.addEventListener("click", () => {
 function screenFunc(){
     //Display screens
     introScreenEl.textContent = "";
+    introScreenEl.classList.remove("wrap");
     screenEl.textContent = allQuestions[i].Q;
     choiceEl.children[0].textContent = allQuestions[i].A1;
     choiceEl.children[1].textContent = allQuestions[i].A2;
     choiceEl.children[2].textContent = allQuestions[i].A3;
     choiceEl.children[3].textContent = allQuestions[i].A4;
 };
+
+
+//localStorage.setItem("initials", "value");
 
 //When question is wrong, deduct 15 seconds
 
