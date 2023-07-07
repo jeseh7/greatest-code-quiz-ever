@@ -1,27 +1,39 @@
 var initialsEl = document.querySelector("#initialsId");
 var submitEl = document.querySelector("#submitScore");
 var collectEl = document.querySelector(".collectClass");
-var scoreListEl = document.querySelector(".scoreList");
+var highscoreListEl = document.querySelector(".highscoreListClass");
 
-scoreListEl.textContent = "This is a test";
+highscoreListEl.textContent = "This is a test";
 
 var secondsLeft = localStorage.getItem("secondsAtEnd");
 console.log(secondsLeft);
 
+var highscoreList = [];
+
 submitEl.addEventListener("click", function(event) {
     event.preventDefault();
-  
-    var initials = document.querySelector("#initialsId").value;
-    
-    localStorage.setItem("initialsKey", initials);
 
-    console.log(initials);
+    var initials = document.querySelector("#initialsId").value;
+
+    highscoreList.push(initials);
+    console.log(highscoreList);
+
+    let highscoreString = JSON.stringify(highscoreList);
+    localStorage.setItem("initialsKey", highscoreString);
 
     collectEl.textContent = "";
 
-    if (initials !== null){
-        scoreListEl.textContent = initials;
 
+    if (initials !== null){
+        // Retrieving the string
+        let retHighscoreString = localStorage.getItem("initialsKey");
+
+        // Retrieved array
+        let retHighscore = JSON.parse(retHighscoreString);
+        var newScore = document.createElement("li");
+        highscoreListEl.appendChild(newScore);
+        newScore.textContent = retHighscore;
     }
+
     
 });
