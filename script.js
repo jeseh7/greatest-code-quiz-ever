@@ -79,6 +79,10 @@ function timerFunc(){
                 secondsLeft--;
                 timerEl.textContent = "Time Left: " + secondsLeft;
             }
+            else{
+                clearInterval(timeInterval);
+                window.open("./highscores.html", "_self");
+            }
         }, 1000);
     };
 }
@@ -99,6 +103,7 @@ function wrongAnswer(event){
 function mainFunc(){  
     i++;
     if (i >= 6){
+        localStorage.setItem("secondsAtEnd", secondsLeft);
         window.open("./highscores.html", "_self");
         return;
     };

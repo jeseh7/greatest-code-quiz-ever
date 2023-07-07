@@ -8,16 +8,26 @@
     <title>Highscores</title>
 </head>
 <body>
+  <main  class="collectClass">
     <h1>All done!</h1>
     <form>
-        <ul class="collectClass">
+        <ul>
           <li>
             <label>Name:</label>
             <input id="initialsId">
-            <input type="submit">
+            <button id="submitScore">Submit Score</button>
           </li>
         </ul>
     </form>
-    <script src="./scores.js"></script>
+  </main>
+  <div class="scoreList"></div>
+  <section>
+    <ul></ul>
+  </section>
+  <section>
+    <button>Go Back</button>
+    <button>Clear Highscores</button>
+  </section>
+  <script src="./scores.js"></script>
 </body>
 </html>
