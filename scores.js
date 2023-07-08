@@ -3,37 +3,42 @@ var submitEl = document.querySelector("#submitScore");
 var collectEl = document.querySelector(".collectClass");
 var highscoreListEl = document.querySelector(".highscoreListClass");
 
-highscoreListEl.textContent = "This is a test";
+//highscoreListEl.textContent = "This is a test";
+
+
 
 var secondsLeft = localStorage.getItem("secondsAtEnd");
 console.log(secondsLeft);
 
-var highscoreList = [];
+var highscorePool = [];
+console.log(highscorePool);
+
 
 submitEl.addEventListener("click", function(event) {
     event.preventDefault();
 
     var initials = document.querySelector("#initialsId").value;
+    highscorePool.push(initials);
 
-    highscoreList.push(initials);
-    console.log(highscoreList);
+    localStorage.setItem("highscorePoolKey", JSON.stringify(highscorePool));
 
-    let highscoreString = JSON.stringify(highscoreList);
-    localStorage.setItem("initialsKey", highscoreString);
-
-    collectEl.textContent = "";
-
-
-    if (initials !== null){
-        // Retrieving the string
-        let retHighscoreString = localStorage.getItem("initialsKey");
-
-        // Retrieved array
-        let retHighscore = JSON.parse(retHighscoreString);
-        var newScore = document.createElement("li");
-        highscoreListEl.appendChild(newScore);
-        newScore.textContent = retHighscore;
-    }
-
-    
+    printScoreArray();
 });
+
+
+
+function printScoreArray(){
+        
+    if (highscorePool.length !== 0){
+        //I need to save user initials to the storage so that even after I refresh, initials stay
+            for (var i=0; i<highscorePool.length; i++){
+                localStorage.getItem("highscorePoolKey");
+                var highscore = highscorePool[i];
+                //console.log(highscore);
+    
+                var li = document.createElement("li");
+                li.textContent = highscore;
+                highscoreListEl.appendChild(li);
+            };
+        };
+}
